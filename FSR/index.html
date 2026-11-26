@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>FSR race guide: 992 Endurance Cup, Spa 12 Hours</title>
+  <meta name="description" content="Full Send Racing team guide for the iRacing 992 Endurance Cup 12 Hours at Spa-Francorchamps. Drivers: Krishan, Rob and Matt.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%231f4fbf'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Arial Black,Arial,sans-serif' font-size='22' font-weight='700' fill='%23fff'%3EFSR%3C/text%3E%3C/svg%3E">
+  <style>
+    :root {
+      --bg: #0b0f18;
+      --bg-2: #101725;
+      --card: #151c2c;
+      --card-2: #1a2336;
+      --line: #2a3550;
+      --text: #e8edf7;
+      --muted: #9aa6be;
+      --blue: #1f4fbf;
+      --blue-2: #5b8cff;
+      --orange: #e85d12;
+      --orange-2: #ff8a3d;
+      --danger: #e34747;
+      --danger-bg: #3a1518;
+      --warn: #e6a23c;
+      --warn-bg: #3a2c14;
+      --ok: #3ecf8e;
+      --radius: 14px;
+      --max: 1120px;
+      --shadow: 0 8px 28px rgba(0,0,0,.35);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      font-size: 17px;
+    }
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: var(--blue-2); }
+    a:hover { color: var(--orange-2); }
+    code, .mono {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      font-size: .9em;
+    }
+    code {
+      background: #0a0d14;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: .1em .4em;
+      color: #ffd4a8;
+      white-space: nowrap;
+    }
+    .wrap { width: min(var(--max), calc(100% - 32px)); margin-inline: auto; }
+    .skip {
+      position: absolute; left: -999px; top: 0;
+      background: var(--orange); color: #111; padding: 8px 12px; z-index: 20;
+    }
+    .skip:focus { left: 8px; top: 8px; }
+    /* Header */
+    .hero {
+      background:
+        radial-gradient(1200px 400px at 80% 0%, rgba(31,79,191,.35), transparent 60%),
+        linear-gradient(180deg, #070a10 0%, var(--bg) 100%);
+      border-bottom: 1px solid var(--line);
+    }
+    .hero-grid {
+      display: grid;
+      gap: 28px;
+      padding: 28px 0 32px;
+      align-items: center;
+    }
+    .hero-art {
+      margin: 0 auto;
+      max-height: 58vh;
+      width: auto;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      background: #000;
+    }
+    .hero figcaption, .media figcaption {
+      margin-top: 8px;
+      font-size: .82rem;
+      color: var(--muted);
+      text-align: center;
+    }
+    .eyebrow {
+      display: inline-block;
+      color: var(--orange-2);
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      font-size: .72rem;
+      font-weight: 700;
+      margin: 0 0 8px;
+    }
+    h1 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      line-height: 1.15;
+      margin: 0 0 10px;
+      letter-spacing: -0.02em;
+    }
+    h1 span { color: var(--orange-2); }
+    .lede { color: var(--muted); margin: 0 0 22px; font-size: 1.02rem; }
+    .metrics {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .metric {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+    .metric strong {
+      display: block;
+      font-size: 1.35rem;
+      color: #fff;
+      letter-spacing: -0.02em;
+    }
+    .metric span { display: block; font-size: .82rem; color: var(--blue-2); font-weight: 600; }
+    .metric small { display: block; color: var(--muted); font-size: .78rem; }
+    /* Tabs */
+    .tabs-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(11,15,24,.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .tabs {
+      display: flex;
+      gap: 4px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 8px 0;
+      scrollbar-width: thin;
+    }
+    .tabs button {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      font: inherit;
+      font-size: .92rem;
+      font-weight: 650;
+      padding: 8px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .tabs button:hover { color: #fff; background: var(--card); }
+    .tabs button[aria-selected="true"] {
+      color: #fff;
+      background: var(--blue);
+    }
+    .tabs button:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+    main { padding: 28px 0 80px; }
+    .panel { margin: 0; }
+    .js .panel[hidden] { display: none; }
+    section.block { margin: 0 0 36px; }
+    h2 {
+      font-size: 1.45rem;
+      margin: 0 0 12px;
+      letter-spacing: -0.02em;
+    }
+    h3 {
+      font-size: 1.12rem;
+      margin: 22px 0 8px;
+    }
+    .section-cap, .muted { color: var(--muted); }
+    .section-cap { margin: -6px 0 14px; font-size: .92rem; }
+    p { margin: 0 0 12px; }
+    /* Shared media */
+    .media {
+      margin: 0 0 16px;
+    }
+    .media img, .media a img {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: #0a0d14;
+    }
+    .media.on-light img { background: #fff; }
+    /* Properties */
+    .props {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--card);
+    }
+    .props div {
+      display: grid;
+      grid-template-columns: 11rem 1fr;
+      gap: 8px 16px;
+      padding: 10px 14px;
+      border-top: 1px solid var(--line);
+    }
+    .props div:first-child { border-top: 0; }
+    .props dt {
+      margin: 0;
+      color: var(--orange-2);
+      font-weight: 650;
+      font-size: .86rem;
+    }
+    .props dd { margin: 0; }
+    /* Tables */
+    .table-wrap { overflow-x: auto; margin: 0 0 14px; border: 1px solid var(--line); border-radius: var(--radius); }
+    table { width: 100%; border-collapse: collapse; min-width: 520px; font-size: .95rem; }
+    th, td { text-align: left; padding: 9px 12px; vertical-align: top; }
+    thead th {
+      background: var(--blue);
+      color: #fff;
+      font-weight: 650;
+      font-size: .82rem;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+    }
+    tbody tr:nth-child(even) { background: rgba(255,255,255,.03); }
+    tbody tr:hover { background: rgba(31,79,191,.18); }
+    td { border-top: 1px solid var(--line); }
+    /* Steps, lists, rows */
+    .steps { list-style: none; margin: 0 0 16px; padding: 0; counter-reset: step; }
+    .steps li {
+      position: relative;
+      padding: 10px 12px 10px 52px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--card);
+      margin: 0 0 8px;
+    }
+    .steps li::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 12px; top: 12px;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: #fff;
+      font-weight: 700;
+      font-size: .9rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .steps strong { display: block; }
+    .steps span { color: var(--muted); font-size: .95rem; }
+    .bullets { margin: 0 0 14px; padding: 0 0 0 1.2rem; }
+    .bullets li { margin: 0 0 8px; }
+    .rows { display: grid; gap: 8px; margin: 0 0 14px; }
+    .row {
+      display: grid;
+      grid-template-columns: 7.5rem 1fr;
+      gap: 4px 14px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+    .row .lead {
+      font-weight: 750;
+      color: var(--orange-2);
+      font-size: .88rem;
+    }
+    .row strong { display: block; }
+    .row p { margin: 0; color: var(--muted); font-size: .95rem; }
+    /* Callouts */
+    .callout {
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin: 0 0 16px;
+      border: 1px solid var(--line);
+      background: var(--card);
+    }
+    .callout strong { display: block; margin-bottom: 4px; }
+    .callout.warn { background: var(--warn-bg); border-color: #6a5018; }
+    .callout.danger { background: var(--danger-bg); border-color: #7a2a2a; }
+    .callout.warn strong { color: var(--warn); }
+    .callout.danger strong { color: #ff8a8a; }
+    /* Checklist */
+    .checks { list-style: none; margin: 0 0 16px; padding: 0; }
+    .checks li {
+      display: grid;
+      grid-template-columns: 1.4rem 1fr auto;
+      gap: 8px;
+      align-items: start;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin: 0 0 6px;
+    }
+    .checks li .box {
+      width: 1.15rem; height: 1.15rem;
+      border-radius: 4px;
+      border: 2px solid var(--line);
+      margin-top: 3px;
+    }
+    .checks li.done .box {
+      background: var(--ok);
+      border-color: var(--ok);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath fill='none' stroke='%23011' stroke-width='2' d='M2 6.2 4.8 9 10 3'/%3E%3C/svg%3E");
+      background-size: 12px; background-repeat: no-repeat; background-position: center;
+    }
+    .checks .meta { color: var(--muted); font-size: .85rem; }
+    /* Grids and cards */
+    .split-2, .drivers {
+      display: grid;
+      gap: 16px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 16px;
+    }
+    .card h3 { margin-top: 0; }
+    .driver {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .driver img { width: 100%; aspect-ratio: 3/4; object-fit: cover; }
+    .driver .body { padding: 14px 16px 18px; }
+    .driver h3 { margin: 0 0 10px; }
+    .driver .props {
+      background: transparent;
+      border: 0;
+    }
+    .driver .props div {
+      grid-template-columns: 1fr;
+      gap: 2px;
+      padding: 8px 0;
+    }
+    .story h3 { margin-top: 28px; }
+    .story h3:first-child { margin-top: 8px; }
+    /* Sources */
+    .links { display: grid; gap: 8px; }
+    .links a {
+      display: block;
+      text-decoration: none;
+      color: var(--text);
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+    .links a:hover { border-color: var(--blue-2); color: #fff; }
+    .links small { display: block; color: var(--muted); font-size: .8rem; margin-top: 2px; }
+    footer.site {
+      border-top: 1px solid var(--line);
+      padding: 28px 0 48px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    footer.site .brand {
+      color: var(--text);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    footer.site .brand span { color: var(--orange); }
+    .back-top {
+      position: fixed;
+      right: 16px; bottom: 16px;
+      width: 42px; height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: var(--card);
+      color: #fff;
+      cursor: pointer;
+      font-size: 1.1rem;
+      box-shadow: var(--shadow);
+    }
+    .back-top:hover { background: var(--blue); }
+    @media (min-width: 700px) {
+      .metrics { grid-template-columns: repeat(3, 1fr); }
+      .split-2 { grid-template-columns: 1fr 1fr; }
+      .row { grid-template-columns: 9rem 1fr; }
+    }
+    @media (min-width: 880px) {
+      .hero-grid { grid-template-columns: 300px 1fr; gap: 40px; padding: 36px 0 40px; }
+      .hero-art { max-height: 420px; }
+      .drivers { grid-template-columns: repeat(3, 1fr); align-items: start; }
+      .props div { grid-template-columns: 13rem 1fr; }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      .props div { grid-template-columns: 1fr; gap: 2px; }
+      .row { grid-template-columns: 1fr; }
+      .wrap { width: min(var(--max), calc(100% - 24px)); }
+      table { min-width: 480px; }
+    }
+    @media print {
+      .tabs-wrap, .back-top, .skip { display: none !important; }
+      .js .panel[hidden] { display: block !important; }
+      .panel { break-inside: avoid; }
+      body { background: #fff; color: #111; }
+      a { color: #123; }
+      .hero, .metric, .card, .driver, .props, .row, .steps li, .checks li, .callout, .links a {
+        background: #fff; color: #111; box-shadow: none;
+      }
+      .props dt, .row .lead, .eyebrow { color: #b04300; }
+      h1, h2, h3, .metric strong { color: #111; }
+      .hero { border: 0; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="hero">
+    <div class="wrap hero-grid">
+      <figure style="margin:0">
+        <img class="hero-art" src="images/hero-car.jpg" width="683" height="1024" alt="Full Send Racing team artwork of the winged helmet logo above a blue and orange number 64 Porsche 911 GT3 Cup, on a black background">
+        <figcaption>Team artwork, not an iRacing screenshot.</figcaption>
+      </figure>
+      <div>
+        <p class="eyebrow">Circuit de Spa-Francorchamps</p>
+        <h1>FSR race guide: 992 Endurance Cup, Spa 12 Hours</h1>
+        <p class="lede">Sat 28 Nov (AEDT) · 12 hours · Porsche 911 Cup (992.2) · KRISH, ROB, MATT</p>
+        <div class="metrics">
+          <div class="metric">
+            <strong>9:00 AM</strong>
+            <span>Slot 1 opens, Sat AEDT</span>
+            <small>Other slots below</small>
+          </div>
+          <div class="metric">
+            <strong>12 h</strong>
+            <span>Race length</span>
+            <small>Spa, Endurance config</small>
+          </div>
+          <div class="metric">
+            <strong>150x</strong>
+            <span>Team DQ limit</span>
+            <small>Penalty at 50x, then every 20x</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="tabs-wrap">
+    <nav class="wrap tabs" role="tablist" aria-label="Guide sections">
+      <button type="button" role="tab" id="tab-event" data-tab="event" aria-controls="panel-event" aria-selected="true">Event</button>
+      <button type="button" role="tab" id="tab-drivers" data-tab="drivers" aria-controls="panel-drivers" aria-selected="false" tabindex="-1">Drivers</button>
+      <button type="button" role="tab" id="tab-comms" data-tab="comms" aria-controls="panel-comms" aria-selected="false" tabindex="-1">Comms</button>
+      <button type="button" role="tab" id="tab-pits" data-tab="pits" aria-controls="panel-pits" aria-selected="false" tabindex="-1">Pits &amp; swaps</button>
+      <button type="button" role="tab" id="tab-rules" data-tab="rules" aria-controls="panel-rules" aria-selected="false" tabindex="-1">Rules</button>
+      <button type="button" role="tab" id="tab-setup" data-tab="setup" aria-controls="panel-setup" aria-selected="false" tabindex="-1">Setup</button>
+      <button type="button" role="tab" id="tab-controls" data-tab="controls" aria-controls="panel-controls" aria-selected="false" tabindex="-1">Controls</button>
+      <button type="button" role="tab" id="tab-track" data-tab="track" aria-controls="panel-track" aria-selected="false" tabindex="-1">Track guide</button>
+      <button type="button" role="tab" id="tab-raceday" data-tab="raceday" aria-controls="panel-raceday" aria-selected="false" tabindex="-1">Race day</button>
+    </nav>
+  </div>
+
+  <main id="main" class="wrap">
+
+    <!-- EVENT -->
+    <section class="panel" id="panel-event" role="tabpanel" aria-labelledby="tab-event">
+      <section class="block">
+        <h2>The event</h2>
+        <dl class="props">
+          <div><dt>Event</dt><dd>iRacing 992 Endurance Cup (Creventic), official iRacing special event</dd></div>
+          <div><dt>Dates</dt><dd>27 to 29 Nov 2026 (GMT dates)</dd></div>
+          <div><dt>Track</dt><dd>Circuit de Spa-Francorchamps, Endurance configuration (not Grand Prix Pits)</dd></div>
+          <div><dt>Car</dt><dd>Porsche 911 Cup (992.2), one class only</dd></div>
+          <div><dt>Sessions</dt><dd>Warm-up 30 min, qualifying 15 min or 4 laps (attached), race 12 hours</dd></div>
+          <div><dt>Team rules</dt><dd>Team event, declare drivers, minimum 2 and maximum 16 drivers</dd></div>
+          <div><dt>Licence</dt><dd>D 4.0 road or higher, for every declared driver</dd></div>
+          <div><dt>Field</dt><dd>Up to 60 cars per split, splits by iRating</dd></div>
+          <div><dt>Incidents</dt><dd>Penalty at 50x, then every 20x after. Disqualified at 150x</dd></div>
+          <div><dt>Weather</dt><dd>Dynamic, so rain is possible</dd></div>
+          <div><dt>Sim time</dt><dd>16 May 2026, starting 10:00 AM track time</dd></div>
+          <div><dt>Setup</dt><dd>Not stated in the announcement. See the Setup tab</dd></div>
+          <div><dt>Fast repairs</dt><dd>Not stated in the announcement. Check the session info</dd></div>
+        </dl>
+      </section>
+
+      <section class="block">
+        <h2>Our car</h2>
+        <figure class="media">
+          <img src="images/car-sponsors.jpg" width="1152" height="768" alt="Full Send Racing team artwork of the blue and orange number 64 Porsche 911 GT3 Cup with the winged FSR helmet logo and a sponsor panel, shown on grey and on black">
+          <figcaption>Team artwork for the shirt, not an in-game screenshot.</figcaption>
+        </figure>
+        <p>Illustrated Full Send Racing Porsche 911 GT3 Cup, number 64, in the team's blue and orange with the winged helmet logo. This is the artwork made for the team shirt, not a screenshot from iRacing.</p>
+      </section>
+
+      <section class="block">
+        <h2>Time slots in Sydney time (AEDT)</h2>
+        <p class="section-cap">Slot times are when the session opens. Registration opens 60 min before. Finish times are estimates.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Slot</th><th>GMT</th><th>Opens (AEDT)</th><th>Finish, about</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td>Fri 22:00</td><td>Sat 28 Nov, 9:00 AM</td><td>Sat, 10:00 PM</td></tr>
+              <tr><td>2</td><td>Sat 07:00</td><td>Sat 28 Nov, 6:00 PM</td><td>Sun, 7:00 AM</td></tr>
+              <tr><td>3</td><td>Sat 12:00</td><td>Sat 28 Nov, 11:00 PM</td><td>Sun, 12:00 PM</td></tr>
+              <tr><td>4</td><td>Sat 16:00</td><td>Sun 29 Nov, 3:00 AM</td><td>Sun, 4:00 PM</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Slot 1 is the only one that runs in Sydney daytime, so this guide plans around it. Slots 2 and 3 also start on Saturday, so confirm with the team which one you meant.</p>
+      </section>
+
+      <section class="block">
+        <h2>How to join</h2>
+        <div class="callout warn"><strong>Roster first</strong>Rob and Matt must be on the FSR team in iRacing before the team is registered. Anyone added after registration gets “The registration for this team is closed”.</div>
+        <ol class="steps">
+          <li><strong>Now: build the iRacing team</strong><span>Krishan (owner) adds Rob and Matt to the FSR team in iRacing and makes sure each has a D 4.0 road licence or better.</span></li>
+          <li><strong>Registration opens 60 min before the slot</strong><span>A team admin opens the event session, Team Registration, picks FSR and adds all three drivers with Add a Driver, then clicks Register Team.</span></li>
+          <li><strong>Only declare who will drive</strong><span>Every declared driver must drive a fair share. Remove anyone who might not turn up while the window is still open.</span></li>
+          <li><strong>Join when the session opens</strong><span>Each driver joins through the Teams page. Declared drivers come in as drivers; anyone else on the team comes in as crew.</span></li>
+          <li><strong>Warm-up (30 min)</strong><span>The starting driver runs the car. Check fuel, pit limiter and radio.</span></li>
+          <li><strong>Qualifying (15 min or 4 laps)</strong><span>Use your quickest driver for a clean lap. A 4x here costs more than the grid slot.</span></li>
+          <li><strong>Race (12 hours)</strong><span>The others join as crew. One takes the spotter seat, one works the pit black box. Up to 6 team members can be connected at once.</span></li>
+        </ol>
+      </section>
+    </section>
+
+    <!-- DRIVERS -->
+    <section class="panel" id="panel-drivers" role="tabpanel" aria-labelledby="tab-drivers" hidden>
+      <section class="block">
+        <h2>Driver profiles</h2>
+        <figure class="media">
+          <img src="images/trio.jpg" width="1280" height="720" alt="AI-made team photo of Krishan, Rob and Matt in Full Send Racing shirts, standing in a golden-hour pit lane with the team's blue and orange Porsche behind them">
+          <figcaption>AI-made team photo. Not a real pit-lane shoot.</figcaption>
+        </figure>
+        <p>Meet the team. The F1 comparisons are a joke, not a timing sheet, and the origin story below is fiction.</p>
+      </section>
+
+      <section class="block story">
+        <h2>How Full Send Racing happened (a completely reliable history)</h2>
+        <p>What follows is not a documentary. It is the official unofficial origin of Full Send Racing, built from vibes, bad ideas, and a shared love of going downhill, in cars or on snow, as fast as seems legal.</p>
+
+        <h3>Three hobbies, one couch</h3>
+        <p>Krishan, Rob and Matt did not meet in a pit lane. They met the usual way: somebody sent a car video, somebody argued about a race, and somebody suggested a snowboard trip before the group chat had a name. They bonded over cars, Formula One and snowboarding, and over a shared refusal to have a calm Sunday. F1 nights became a ritual. They also had a very specific, entirely playful problem with two of its regulars.</p>
+        <p>Lando Norris was their white whale of almost: the qualifying flyer, the "this is the weekend" energy, the meme-ready nearly moment as the win slipped up the road. Every time it happened, someone in the chat would type "nearly" and the other two would already be typing it too.</p>
+        <p>Lance Stroll was a different kind of entertainment. Not because they knew him. They did not. It was the public joke everyone already knows: the seat that comes with the family operation. "Imagine if your dad owned the team," someone would say. "Imagine if we owned the team," somebody else would answer, and that is where the trouble started.</p>
+
+        <h3>El Plan, budget edition</h3>
+        <p>They were going to own an F1 team. Of course they were. How hard could it be?</p>
+        <p>Krishan opened a notes app and called it El Plan, which should have been a warning. He already had the energy of a team principal who also wants to drive, and he was happy to do both. Rob offered to handle atmosphere, which turned out to mean shouting at a television. Matt listened, hands probably in his pockets even then, and said they should maybe start with a livery.</p>
+        <p>So they did. Blue and orange. A winged helmet. The number 64. It looked sharp, and also very expensive. The budget meeting lasted as long as a pit stop, if the pit stop went badly. They had the colours. They did not have a spare billion. The dream began in Monaco and, after a short period of honesty, ended in a sim rig.</p>
+        <p>"Fine," said Krishan, in the sunglasses he would later refuse to take off for a harbour photo. "We start a racing team anyway."</p>
+        <p>"In what, the living room?" said Rob.</p>
+        <p>"In iRacing," said Matt, which was the first full sentence he had needed all night.</p>
+        <p>They did not buy an F1 team. They did the next best thing, and the only thing that did not require a father who already owned one: an iRacing team, with better access to a Porsche Cup car.</p>
+
+        <h3>The name on the mountain</h3>
+        <p>The name did not come from a branding workshop. It came from a mountain. They went snowboarding, because of course they did. Rob was already loud on the chairlift. Krishan had the sunglasses on. Matt stood at the top, calm as a man who has already decided his line and is not taking questions. At the lip of a steep one, someone should have said something responsible. That person was not there. Rob looked down the hill, grinned, and said the only two words that ever matter in that situation.</p>
+        <p>"Full send."</p>
+        <p>They went. They made it, more or less. At the bottom, the joke became a name, and the name became a team. Full Send Racing.</p>
+        <p>Back home, every nearly from Lando became a "full send that didn't quite." Every broadcast shot of Lance on a very familiar pit wall was a reminder that if they ever did own a team, the only family connection would be three mates who had shared a chairlift. The whiteboard had two rules, and both were jokes: not Lando, not Lance. The third, added later in smaller writing, was "do not crash at Blanchimont."</p>
+
+        <h3>A 12-hour answer</h3>
+        <p>Krishan did what Krishan does. He organised it. A Discord. A roster. A race guide so complete it could probably start the car on its own. He already had the Porsche 992 Cup and a Mercedes-AMG GT3 in the garage, and a 7:01 at the Nürburgring that he was treating as a personal insult. Rob tested the headset. The headset has not had a day off since. Matt looked at the Spa entry, nodded once, and that was the whole press conference.</p>
+        <p>They had wanted an F1 team. They got something better: a blue and orange Porsche, a 12-hour race at Spa, and three drivers who will argue about Formula One, pack a snowboard, and still show up for a stint at dusk.</p>
+        <p>The lights go green on Saturday, the radio will be a mix of useful information and Rob, and if anyone asks how this team started, the official answer is simple. They were going to own Formula One. Then they counted the money, named the team on a mountain, and entered Spa instead.</p>
+        <p>How hard could it be?</p>
+      </section>
+
+      <section class="block">
+        <h2>The drivers</h2>
+        <div class="drivers">
+          <article class="driver">
+            <img src="images/krishan.jpg" width="900" height="1200" alt="Krishan in Sydney, backwards cap, sunglasses and an FSR shirt, grinning in a harbour selfie">
+            <div class="body">
+              <h3>Krishan, El Plan</h3>
+              <dl class="props">
+                <div><dt>Nickname</dt><dd>El Plan</dd></div>
+                <div><dt>Drives like</dt><dd>Fernando Alonso. He organised the team, the Discord and this whole guide, then still hopped in the Porsche. If there is a plan, he wrote it. If there is not, he is already writing one in #strategy. The 7:01 at the Nürburgring is a personal vendetta, which is the most Alonso thing you can do in a backwards cap.</dd></div>
+                <div><dt>Strengths</dt><dd>Builds a team, a Discord and a race guide before breakfast. Also has a Mercedes-AMG GT3 for when the Cup car is not enough.</dd></div>
+                <div><dt>Watch out for</dt><dd>Will mention the 7:01 if the conversation has a gap longer than a pit stop. May also sign you up for a 12-hour race.</dd></div>
+                <div><dt>Coffee to lap time ratio</dt><dd>One flat white per tenth, officially</dd></div>
+                <div><dt>Seconds shy of a sub-7 at the Ring</dt><dd>About two, and falling, he hopes</dd></div>
+              </dl>
+            </div>
+          </article>
+          <article class="driver">
+            <img src="images/rob.jpg" width="900" height="1200" alt="Rob at his desk in an FSR shirt and a big gaming headset, throwing a rock-on hand sign and yelling">
+            <div class="body">
+              <h3>Rob, Push-to-Yell</h3>
+              <dl class="props">
+                <div><dt>Nickname</dt><dd>Push-to-Yell</dd></div>
+                <div><dt>Drives like</dt><dd>Max Verstappen. Not because we timed him, but because the headset has never known peace and neither has a gap. Relentless, loud, and convinced that every corner is a personal challenge. If iRacing logged team radio volume, Rob would be leading the championship.</dd></div>
+                <div><dt>Strengths</dt><dd>You will never wonder whether he is still on the radio. Keeps the energy up at hour 11.</dd></div>
+                <div><dt>Watch out for</dt><dd>May call a pass, a crash and a coffee order in the same breath, usually in your braking zone.</dd></div>
+                <div><dt>Push-to-talk discipline</dt><dd>Theoretically exists</dd></div>
+                <div><dt>Quiet laps recorded</dt><dd>Still loading</dd></div>
+              </dl>
+            </div>
+          </article>
+          <article class="driver">
+            <img src="images/matt.jpg" width="720" height="960" alt="Matt on a rooftop in an FSR shirt, hands in pockets, with a calm smile and white church towers behind him">
+            <div class="body">
+              <h3>Matt, The Iceman</h3>
+              <dl class="props">
+                <div><dt>Nickname</dt><dd>The Iceman</dd></div>
+                <div><dt>Drives like</dt><dd>Kimi Raikkonen. Hands in pockets, pulse unchanged, already in the car in his head. He will not fill the radio just to hear himself. If Matt says leave me alone, I know what I'm doing, the correct response is to leave him alone, because he probably does.</dd></div>
+                <div><dt>Strengths</dt><dd>The calm in the Race channel. Will still have the same heart rate at Blanchimont at dusk.</dd></div>
+                <div><dt>Watch out for</dt><dd>You might think he is not listening. He is. He just does not need a speech about it.</dd></div>
+                <div><dt>Words per stint</dt><dd>Enough, and not one more</dd></div>
+                <div><dt>Radio essays written</dt><dd>Zero. Rob has it covered.</dd></div>
+              </dl>
+            </div>
+          </article>
+        </div>
+      </section>
+    </section>
+
+    <!-- COMMS -->
+    <section class="panel" id="panel-comms" role="tabpanel" aria-labelledby="tab-comms" hidden>
+      <section class="block">
+        <h2>Your Discord, mid-race</h2>
+        <figure class="media">
+          <img src="images/discord-layout.jpg" width="1600" height="1000" alt="Drawing of the Full Send Racing Discord with race-brief, strategy, and Race, Pits and Briefing voice channels">
+          <figcaption>The layout from our Discord guide. Drawing, not a screenshot</figcaption>
+        </figure>
+        <dl class="props">
+          <div><dt>#race-brief</dt><dd>Pinned stint plan, setup file and fuel numbers. Read only on the day</dd></div>
+          <div><dt>#strategy</dt><dd>Live notes: fuel left, stops, incidents, who is next</dd></div>
+          <div><dt>Race (voice)</dt><dd>Current driver plus one person on spotter or crew chief. Nobody else</dd></div>
+          <div><dt>Pits (voice)</dt><dd>Next driver and off-duty drivers. Chat freely here</dd></div>
+          <div><dt>Briefing (voice)</dt><dd>Pre-race briefing, then left empty</dd></div>
+          <div><dt>Backup 1</dt><dd>iRacing in-sim radio on the team channel</dd></div>
+          <div><dt>Backup 2</dt><dd>WhatsApp group, if Discord drops</dd></div>
+        </dl>
+      </section>
+
+      <section class="block">
+        <h2>My thoughts</h2>
+        <ul class="bullets">
+          <li>Keep the Race channel to two voices. Twelve hours of chatter wears a driver down fast.</li>
+          <li>Everyone on push-to-talk, and nobody talks into a braking zone. Short calls on the straights: Kemmel, after La Source, Blanchimont to the Bus Stop.</li>
+          <li>Give one person the spotter or crew chief role for each stint. In iRacing any crew member can take the spotter seat and set the pit black box for the driver.</li>
+          <li>Use a Discord push-to-talk key that does not clash with iRacing's radio key, the pit limiter or the clutch.</li>
+          <li>If Discord drops, switch to the iRacing team radio and note it in #strategy. WhatsApp is the last fallback.</li>
+        </ul>
+      </section>
+
+      <section class="block">
+        <h2>Standard callouts</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Call</th><th>Means</th></tr></thead>
+            <tbody>
+              <tr><td>“Box this lap”</td><td>Pit at the end of this lap</td></tr>
+              <tr><td>“Fuel 12 laps”</td><td>Laps of fuel left</td></tr>
+              <tr><td>“Car left / car right / clear”</td><td>Spotter calls; iRacing's spotter does this too</td></tr>
+              <tr><td>“Blue behind, Kemmel”</td><td>A faster car is lapping you; let it by on the straight</td></tr>
+              <tr><td>“Team on 38”</td><td>Team incident total (penalty at 50x)</td></tr>
+              <tr><td>“Driver change ready”</td><td>Next driver is in the session and on the radio</td></tr>
+              <tr><td>“Slow car, Pouhon”</td><td>Stopped or slow car ahead</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="block">
+        <h2>How the day runs</h2>
+        <figure class="media">
+          <img src="images/discord-flow.jpg" width="1600" height="1033" alt="Diagram of the race-day flow and the handover loop for each stint">
+          <figcaption>From our Discord guide</figcaption>
+        </figure>
+      </section>
+    </section>
+
+    <!-- PITS -->
+    <section class="panel" id="panel-pits" role="tabpanel" aria-labelledby="tab-pits" hidden>
+      <section class="block">
+        <h2>Driver change, step by step</h2>
+        <ol class="steps">
+          <li><strong>Next driver joins early</strong><span>At least 10 min before the stop, already in the session and in the Race voice channel.</span></li>
+          <li><strong>Crew sets the black box</strong><span>F4 for fuel, tearoff and fast repair. F5 for tyres. The crew chief can do this for the driver. See the Pit black box section for pictures and keys.</span></li>
+          <li><strong>Driver pits and stops in the stall</strong><span>Limiter on at the pit line. Stop in the box.</span></li>
+          <li><strong>Driver gets out</strong><span>Press Esc once stopped in the stall. The car stays put.</span></li>
+          <li><strong>Next driver clicks Drive</strong><span>The Drive button shows for eligible teammates when the car is free.</span></li>
+          <li><strong>30-second swap timer</strong><span>Starts when the car stops and runs during service. No need to rush the get-out.</span></li>
+          <li><strong>Leave on the limiter</strong><span>Limiter off only after the pit exit line.</span></li>
+        </ol>
+        <p>If a driver stops on track or walks away, teammates get a Tow Car, Return To Pit or Remove Driver button after the car has been stopped for 5 seconds.</p>
+      </section>
+
+      <section class="block">
+        <h2>Pit black box</h2>
+        <p>Fuel and tyres are two separate black boxes. Press F4 for Fuel, which also has windshield tearoff and fast repair. Press F5 for Tires. The pictures below are official iRacing Support screenshots, from articles updated 2 Feb 2026 and 9 Sep 2025. They show gallons and psi. Your sim may show litres and kPa if you use metric units.</p>
+        <figure class="media">
+          <a href="images/pit-blackbox.jpg">
+            <img src="images/pit-blackbox.jpg" width="1600" height="1639" alt="Official iRacing Fuel (F4) and Tires (F5) black boxes, annotated with numbered callouts">
+          </a>
+          <figcaption>Official iRacing Support screenshots, annotated. Open the image to zoom.</figcaption>
+        </figure>
+
+        <h3>Press by press</h3>
+        <ol class="steps">
+          <li><strong>Open the Fuel box on a straight</strong><span>One or two laps before you pit, on Kemmel or another straight, press F4.</span></li>
+          <li><strong>Set the fuel stop</strong><span>Set Add to the litres you want, or tick Auto Fuel if you want the sim to calculate a finish fill, with a margin of at least 1.0 in a timed race. Tick Begin Fueling. Tick Windshield Tearoff if the screen is dirty. Only tick Fast Repair if you have damage and want to spend one.</span></li>
+          <li><strong>Set the tyres</strong><span>Press F5. Choose which tyres to change, or type <code>#t</code> in chat for all four. Check the cold pressures.</span></li>
+          <li><strong>Check again, then stop in the stall</strong><span>Glance at F4 and F5 before pit entry. Hit your pit limiter at the line, then stop in your stall. Service starts on its own.</span></li>
+          <li><strong>Crew can set this too</strong><span>A teammate who takes the crew chief role can make these black-box changes for the driver. That comes from iRacing's Team Driving article, updated 29 Sep 2026. The outgoing driver should still confirm the boxes before the car stops.</span></li>
+        </ol>
+
+        <h3>Chat macros</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Command</th><th>What it does</th></tr></thead>
+            <tbody>
+              <tr><td><code>#fuel 100l</code></td><td>Add 100 litres. Use <code>l</code>, <code>g</code> or <code>k</code>. <code>#fuel</code> on its own ticks Begin Fueling</td></tr>
+              <tr><td><code>#autofuel 1</code></td><td>Turn Auto Fuel on, optionally with a lap margin. <code>#-autofuel</code> turns it off</td></tr>
+              <tr><td><code>#t</code></td><td>Change all four tyres. <code>#l</code> and <code>#r</code> are a side. <code>#lf</code>, <code>#rf</code>, <code>#lr</code> and <code>#rr</code> are each corner, and can include a pressure</td></tr>
+              <tr><td><code>#ws</code></td><td>Windshield tearoff</td></tr>
+              <tr><td><code>#fr</code></td><td>Use a fast repair</td></tr>
+              <tr><td><code>#clear</code></td><td>Untick every pit service</td></tr>
+              <tr><td><code>#cleartires</code></td><td>Untick the tyres only</td></tr>
+              <tr><td><code>#-lf</code> or <code>#!lf</code></td><td>A leading minus turns that service off. A leading ! toggles it</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Press T, type the command, then Enter. You can also bind macros in Settings, Keybinds, Text Chat. Put a <code>$</code> at the end of a macro so it sends immediately. An official example on that page is <code>#lf rf lr rr ws fuel 500g$</code> on Alt-1. For the Porsche 110 L tank, a command such as <code>#fuel 100l</code> is the useful form, not 500g. Macros are from iRacing's Pit Macros/Chat Commands article, updated 9 Sep 2025: <a href="https://support.iracing.com/support/solutions/articles/31000170165-pit-macros-chat-commands">https://support.iracing.com/support/solutions/articles/31000170165-pit-macros-chat-commands</a></p>
+        <p>By default, after you leave pit road, iRacing usually re-requests full pit service (fuel, tyres, tearoff). Fast repair has its own reset. The settings are <code>autoResetPitBox</code> and <code>autoResetFastRepair</code> in Documents\iRacing\app.ini. Check F4 and F5 before every stop rather than assuming the last stop's choices stuck. This default is described in the 2016 user guide and in official 2023 patch notes. I did not find a 2026 Support article that restates it in plain language.</p>
+        <p>Auto Fuel only works in a race session once you have fuel data. It calculates a fill to the finish, and changing Add by hand turns it off. For scheduled full-tank stints, setting Add yourself is the straightforward approach.</p>
+        <p>Official default keys (9 Sep 2025) are Down, Left, Right, Space and Home. Select Next Control exists as a bindable control and is often the Up arrow, but Up is not listed in the current official default table, so check your Keybinds. 2026 Season 4 also added a Pit Summary widget that can show and control pit service. F4 and F5 still work, and they are what these official screenshots show.</p>
+        <p>Changes made after service has already started at that stop may not apply. I have not found an official sentence that states this, so set the boxes before you stop.</p>
+      </section>
+
+      <section class="block">
+        <h2>Fuel and stint numbers</h2>
+        <div class="metrics">
+          <div class="metric">
+            <strong>3.8-3.9 L</strong>
+            <span>Fuel per lap</span>
+            <small>Our telemetry, runs 4 and 5</small>
+          </div>
+          <div class="metric">
+            <strong>110 L</strong>
+            <span>Tank</span>
+            <small>29.1 gal on iRacing's spec page</small>
+          </div>
+          <div class="metric">
+            <strong>26 laps</strong>
+            <span>Planned stint</span>
+            <small>About 62 min, 3 to 4 L spare</small>
+          </div>
+        </div>
+        <div class="rows" style="margin-top:12px">
+          <div class="row"><div class="lead">Laps</div><div><strong>About 290 laps in 12 hours</strong><p>At about 2:22 a lap plus stops. Estimate</p></div></div>
+          <div class="row"><div class="lead">Stops</div><div><strong>About 11 fuel stops</strong><p>A full tank is 28 laps at most. Fewer if iRacing caps the fuel</p></div></div>
+          <div class="row"><div class="lead">Fair share</div><div><strong>At least 25 laps each</strong><p>A quarter of an equal share of about 290 laps, rounded up, now with three drivers. The F1 black box shows each driver's count</p></div></div>
+          <div class="row"><div class="lead">Tyres</div><div><strong>Wear looks low</strong><p>About 5% over 20 laps in run 4, so try double-stinting tyres. Check grip, not just the %</p></div></div>
+          <div class="row"><div class="lead">Measure</div><div><strong>In practice, time a full stop</strong><p>Pit lane loss, fill time for 100 L, and whether tyres add time on top of fuel</p></div></div>
+        </div>
+      </section>
+
+      <section class="block">
+        <h2>Stint plan, draft</h2>
+        <p class="section-cap">For slot 1. Green flag about 9:45 AM AEDT, an estimate. Agree the order as a team.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Stint</th><th>Driver</th><th>Race hour</th><th>AEDT, about</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td>KRISH</td><td>0-1</td><td>9:45 AM</td></tr>
+              <tr><td>2</td><td>ROB</td><td>1-2</td><td>10:45 AM</td></tr>
+              <tr><td>3</td><td>MATT</td><td>2-3</td><td>11:45 AM</td></tr>
+              <tr><td>4</td><td>KRISH</td><td>3-4</td><td>12:45 PM</td></tr>
+              <tr><td>5</td><td>ROB</td><td>4-5</td><td>1:45 PM</td></tr>
+              <tr><td>6</td><td>MATT</td><td>5-6</td><td>2:45 PM</td></tr>
+              <tr><td>7</td><td>KRISH</td><td>6-7</td><td>3:45 PM</td></tr>
+              <tr><td>8</td><td>ROB</td><td>7-8</td><td>4:45 PM</td></tr>
+              <tr><td>9</td><td>MATT</td><td>8-9</td><td>5:45 PM</td></tr>
+              <tr><td>10</td><td>KRISH</td><td>9-10</td><td>6:45 PM</td></tr>
+              <tr><td>11</td><td>ROB</td><td>10-11</td><td>7:45 PM</td></tr>
+              <tr><td>12</td><td>MATT</td><td>11-12</td><td>8:45 PM</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Four one-hour stints each with two hours off between. Stint 12 runs into dusk, so give it to whoever is most at ease at night. Stints follow the fuel, so the clock times will drift.</p>
+      </section>
+    </section>
+
+    <!-- RULES -->
+    <section class="panel" id="panel-rules" role="tabpanel" aria-labelledby="tab-rules" hidden>
+      <section class="block">
+        <h2>Incidents</h2>
+        <div class="callout danger"><strong>Incidents are the real threat</strong>The limit is for the whole team, all three drivers added together. Run 5 had 27x in 10 laps. At that rate we hit 150x in under 60 laps. Over about 290 laps the team needs to average well under 0.5x a lap.</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Incident</th><th>Points</th></tr></thead>
+            <tbody>
+              <tr><td>Light contact</td><td>0x</td></tr>
+              <tr><td>Too far off track</td><td>1x</td></tr>
+              <tr><td>Loss of control (spin)</td><td>2x</td></tr>
+              <tr><td>Contact with a wall or barrier</td><td>2x</td></tr>
+              <tr><td>Heavy contact with a car</td><td>4x</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>When incidents happen in quick succession, only the highest counts (a spin into a car is 4x, not 6x).</p>
+      </section>
+
+      <section class="block">
+        <h2>On track</h2>
+        <div class="rows">
+          <div class="row"><div class="lead">Pit lane</div><div><strong>Use the limiter every time</strong><p>Speeding in pit lane gets a penalty. Limit is 72 km/h per Braking Lab's track page; check the sign in Test Drive</p></div></div>
+          <div class="row"><div class="lead">Black flag</div><div><strong>Serve it straight away</strong><p>Read the message on screen and pit as told. Ignoring it can end in a DQ</p></div></div>
+          <div class="row"><div class="lead">Blue flag</div><div><strong>Faster car lapping you</strong><p>Hold your line and let it by on a straight. Do not jump out of the way mid-corner</p></div></div>
+          <div class="row"><div class="lead">Track limits</div><div><strong>Four wheels off is 1x</strong><p>Repeat cuts can bring a slow-down penalty. Watch Blanchimont and Pouhon exits</p></div></div>
+          <div class="row"><div class="lead">Rejoining</div><div><strong>Wait for a gap</strong><p>After a spin, check the relative black box before rolling back on</p></div></div>
+          <div class="row"><div class="lead">Disconnect</div><div><strong>Teammates can recover the car</strong><p>After 5 s stopped, the crew gets Tow Car or Return To Pit. Keep a second driver online</p></div></div>
+          <div class="row"><div class="lead">Fair share</div><div><strong>Miss it and the team is DQ'd</strong><p>Every declared driver must reach their lap count</p></div></div>
+        </div>
+      </section>
+
+      <section class="block">
+        <h2>Off track</h2>
+        <ul class="bullets">
+          <li>iRacing's Sporting Code covers chat and radio: no abuse, no baiting other drivers in text or voice.</li>
+          <li>Keep in-sim chat to apologies and short courtesies. Sort disputes after the race.</li>
+          <li>Discord: no talking over the driver, no screen-sharing in the Race channel, keep jokes in Pits.</li>
+          <li>Don't spectate other teams or stream their onboard audio into our channels.</li>
+        </ul>
+      </section>
+    </section>
+
+    <!-- SETUP -->
+    <section class="panel" id="panel-setup" role="tabpanel" aria-labelledby="tab-setup" hidden>
+      <section class="block">
+        <h2>Fixed or open?</h2>
+        <p>Not stated in iRacing's announcement. GO Setups sells setups for this event, which points to open, but that is a guess until you see the session info.</p>
+        <div class="split-2">
+          <div class="card">
+            <h3>If it is fixed</h3>
+            <ul class="bullets">
+              <li>Everyone runs iRacing's baseline.</li>
+              <li>Only brake bias changes in the car.</li>
+              <li>ABS and TC were locked at 4 in fixed series (Dec 2025 reports, may have changed).</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>If it is open</h3>
+            <ul class="bullets">
+              <li>Run our Adams-based setup below.</li>
+              <li>ABS, TC, throttle map and bias can all change in the car.</li>
+              <li>All three drivers use the same file.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="block">
+        <h2>Our setup for the race</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Item</th><th>Adams (2:14.726)</th><th>Ours now</th><th>For the race</th></tr></thead>
+            <tbody>
+              <tr><td>Tyre pressures</td><td>159 kPa</td><td>159 kPa</td><td>159 kPa</td></tr>
+              <tr><td>Front toe</td><td>-2.5 mm</td><td>-2.9 mm in the file</td><td>-2.5 mm</td></tr>
+              <tr><td>Front perches</td><td>6.0 mm</td><td>4.50 mm</td><td>Try 6.00, keep 4.50 if tech fails</td></tr>
+              <tr><td>Front camber</td><td>-4.5</td><td>-4.5 in the file</td><td>-4.5</td></tr>
+              <tr><td>Front ride height</td><td>72.1 mm</td><td>73.9 mm</td><td>Stay above 72 mm</td></tr>
+              <tr><td>Rear perches</td><td>5.3 mm</td><td>5.25 mm</td><td>5.25 mm</td></tr>
+              <tr><td>Rear camber / toe</td><td>-3.9 / +0.1 mm</td><td>As Adams</td><td>As Adams</td></tr>
+              <tr><td>ARB front / rear</td><td>1 / 6</td><td>As Adams</td><td>As Adams</td></tr>
+              <tr><td>Wing</td><td>12</td><td>12</td><td>12</td></tr>
+              <tr><td>Brake bias</td><td>47.5%</td><td>47.5%</td><td>47.5%, adjust as tyres wear</td></tr>
+              <tr><td>ABS / TC</td><td>3 / 1</td><td>3 / 1</td><td>3 / 2 to start, more in rain</td></tr>
+              <tr><td>Cross weight</td><td>50.0%</td><td>50.0%</td><td>50.0%</td></tr>
+              <tr><td>Fuel</td><td>50 L in garage</td><td>55 L</td><td>Start fuel per the plan</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>ABS and TC for the race are my suggestion for a 12-hour race with three drivers, not from the reference. Rob and Matt may want one more step of TC.</p>
+      </section>
+
+      <section class="block">
+        <h2>Before Saturday</h2>
+        <ul class="bullets">
+          <li>Test tech at race fuel. The fuel cell is in the front, so a full tank lowers the front. Ride heights under about 72 mm failed tech on Krishan's garage.</li>
+          <li>The hot-lap advice of 18 to 20 L fuel was for practice laps only. In the race, fuel follows the stint plan.</li>
+          <li>Camber and toe changes also move the ride height in this garage, so recheck tech after every change.</li>
+          <li>Save it as one named file, for example FSR_Spa12h_race.sto.</li>
+        </ul>
+      </section>
+
+      <section class="block">
+        <h2>Sharing the file</h2>
+        <ol class="steps">
+          <li><strong>Krishan saves the final file</strong><span>In the garage, Save As. The file lands under Documents\iRacing\setups\porsche9922cup on his PC.</span></li>
+          <li><strong>Post it in #race-brief and pin it</strong><span>Attach the .sto file with the date and what changed.</span></li>
+          <li><strong>Everyone copies it into the same folder</strong><span>Then loads it in Test Drive and runs 5 laps on the Endurance config.</span></li>
+          <li><strong>On race day</strong><span>The setup stays with the car through driver changes, so only whoever puts the car on track needs to load it.</span></li>
+        </ol>
+        <p>The last point is how I understand iRacing team sessions. Confirm it in warm-up.</p>
+      </section>
+    </section>
+
+    <!-- CONTROLS -->
+    <section class="panel" id="panel-controls" role="tabpanel" aria-labelledby="tab-controls" hidden>
+      <section class="block">
+        <h2>Wheel and pedals</h2>
+        <ol class="steps">
+          <li><strong>Calibrate in iRacing</strong><span>Options, Controls, Calibrate. Full lock, then each pedal to the floor and back.</span></li>
+          <li><strong>Brake: 100% before the stop</strong><span>Set the brake so full pressure comes before your pedal's end stop. Run 5 hit 100% at the Bus Stop, so check this.</span></li>
+          <li><strong>Force feedback: auto first</strong><span>Use the in-car auto FFB on a clean lap, then lower it until there is no clipping through Eau Rouge.</span></li>
+          <li><strong>Same on every PC</strong><span>Each driver sets this on their own rig and does 10 laps before Saturday.</span></li>
+        </ol>
+      </section>
+
+      <section class="block">
+        <h2>Must-bind list</h2>
+        <p class="section-cap">Options, Controls. Names can differ slightly between iRacing builds.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Control</th><th>Why</th><th>992.2</th></tr></thead>
+            <tbody>
+              <tr><td>Pit speed limiter</td><td>Pit lane penalty</td><td>Yes</td></tr>
+              <tr><td>Headlights</td><td>Dusk at the end</td><td>Yes, night lighting</td></tr>
+              <tr><td>Headlight flash</td><td>Warn lapped cars</td><td>Yes</td></tr>
+              <tr><td>Windshield wipers</td><td>Dynamic weather, rain</td><td>Yes, per patch notes</td></tr>
+              <tr><td>Ignition and starter</td><td>Restart after a stall</td><td>Yes</td></tr>
+              <tr><td>Push to talk, iRacing radio</td><td>Backup radio</td><td>Sim control</td></tr>
+              <tr><td>Push to talk, Discord</td><td>Main radio</td><td>Discord setting</td></tr>
+              <tr><td>Black box next / previous</td><td>Pit, fuel, relative</td><td>Sim control</td></tr>
+              <tr><td>Black box adjust up / down</td><td>Change fuel, tyres</td><td>Sim control</td></tr>
+              <tr><td>Brake bias up / down</td><td>Wear, fuel, rain</td><td>Yes, in-car dial</td></tr>
+              <tr><td>ABS up / down</td><td>Rain, worn tyres</td><td>Yes, open setup only</td></tr>
+              <tr><td>TC up / down</td><td>Rain, cold tyres</td><td>Yes, open setup only</td></tr>
+              <tr><td>Throttle map</td><td>Wet running</td><td>Yes, in-car dial</td></tr>
+              <tr><td>Look left / right</td><td>Traffic</td><td>Sim control</td></tr>
+              <tr><td>Chat macros</td><td>“Sorry”, “Thanks”</td><td>Sim control</td></tr>
+              <tr><td>Tear-off</td><td>Dirty screen</td><td>Not confirmed. Bind it only if listed</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="block">
+        <h2>Black boxes worth knowing</h2>
+        <div class="rows">
+          <div class="row"><div class="lead">Lap info</div><div><strong>Your fair-share lap count</strong><p>Red, yellow or green against what you need</p></div></div>
+          <div class="row"><div class="lead">Relative</div><div><strong>Who is around you</strong><p>Shows a DC tag for fair share</p></div></div>
+          <div class="row"><div class="lead">F4 / F5</div><div><strong>Fuel and tyres black boxes</strong><p>F4 is fuel, tearoff and fast repair. F5 is tyres and pressures. Set them before the stop. The crew chief can set them too. See Pits and swaps</p></div></div>
+          <div class="row"><div class="lead">In-car</div><div><strong>Bias, ABS, TC, throttle map</strong><p>Change on straights only</p></div></div>
+        </div>
+      </section>
+
+      <section class="block">
+        <h2>Escape and tow</h2>
+        <p>Pressing Esc on track resets or tows the car and takes you out of it. In a team race that can cost minutes. Only use it when the car cannot drive back, and call it on the radio first.</p>
+      </section>
+    </section>
+
+    <!-- TRACK -->
+    <section class="panel" id="panel-track" role="tabpanel" aria-labelledby="tab-track" hidden>
+      <section class="block">
+        <h2>Spa-Francorchamps</h2>
+        <figure class="media">
+          <a href="images/spa-map.jpg"><img src="images/spa-map.jpg" width="1600" height="990" alt="Track map of Spa-Francorchamps with corner names and numbers"></a>
+          <figcaption>Spa map by Will Pittenger, CC BY-SA 3.0, Wikimedia Commons</figcaption>
+        </figure>
+        <dl class="props">
+          <div><dt>Length</dt><dd>7.0 km, about 2:14 for the quickest reference laps</dd></div>
+          <div><dt>Our pace</dt><dd>Krishan 2:21.2 clean, 2:20.6 fastest (run 5)</dd></div>
+          <div><dt>Reference</dt><dd>Adams 2:14.726, Eskandari 2:14.675 (Garage 61)</dd></div>
+          <div><dt>Config</dt><dd>Practise on “Endurance” from now on. Our laps were on Grand Prix Pits</dd></div>
+        </dl>
+      </section>
+
+      <section class="block">
+        <h2>Where Krishan loses time</h2>
+        <figure class="media on-light">
+          <a href="images/delta-map.jpg"><img src="images/delta-map.jpg" width="1600" height="1132" alt="Track map coloured by time lost to Adams on run 5 lap 4"></a>
+          <figcaption>Run 5, lap 4 (2:21.224) against Adams</figcaption>
+        </figure>
+        <div class="callout"><strong>Problem spots</strong>Bus Stop +0.79 s, Malmedy +0.69 s, Rivage +0.67 s, Kemmel +0.54 s, Fagnes left +0.44 s. Incidents keep coming at the exits of Blanchimont (6 laps) and Pouhon (5 laps).</div>
+      </section>
+
+      <section class="block">
+        <h2>Corner by corner</h2>
+        <p class="section-cap">Gear and speed are the reference driver's. Brake distance is from the brake point to the slowest point. From run 5 telemetry.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Corner</th><th>Gear</th><th>Min km/h</th><th>Lost</th><th>What to do</th></tr></thead>
+            <tbody>
+              <tr><td>1 La Source</td><td>1</td><td>63</td><td>0.35</td><td>Brake 126 m out at 75%, not 84%. Try 1st like Adams, exit for Eau Rouge</td></tr>
+              <tr><td>2 Eau Rouge</td><td>5</td><td>234</td><td>0.04</td><td>Good. Keep it</td></tr>
+              <tr><td>3 Raidillon</td><td>6</td><td>244</td><td>0.13</td><td>You lift to 40%. Build towards flat; lift in rain or on cold tyres</td></tr>
+              <tr><td>4 Kemmel</td><td>6</td><td>269</td><td>0.54</td><td>Loss comes from Raidillon. Shift at 8600 to 8700 rpm</td></tr>
+              <tr><td>5 Les Combes</td><td>3</td><td>117</td><td>0.33</td><td>Brake earlier and lighter (243 m, 75%). Throttle sooner</td></tr>
+              <tr><td>6 Malmedy</td><td>3</td><td>142</td><td>0.69</td><td>Lift only. No brake</td></tr>
+              <tr><td>7 Rivage</td><td>2</td><td>95</td><td>0.67</td><td>Brake 24 m earlier at about 62%. Roll more speed</td></tr>
+              <tr><td>8 Turn 9</td><td>3</td><td>130</td><td>0.13</td><td>Short dab, fewer steering corrections</td></tr>
+              <tr><td>9 Pouhon</td><td>4</td><td>173</td><td>0.30</td><td>Leave a car width on exit. Incidents on 5 laps</td></tr>
+              <tr><td>10 Fagnes R</td><td>3</td><td>126</td><td>0.30</td><td>Brake 170 m out at 75%. Less ABS</td></tr>
+              <tr><td>11 Fagnes L</td><td>3</td><td>136</td><td>0.44</td><td>Lift only. Drop the brake brush</td></tr>
+              <tr><td>12 Campus</td><td>3</td><td>120</td><td>0.42</td><td>Same brake point, trail the brake longer</td></tr>
+              <tr><td>13 Stavelot</td><td>3</td><td>160</td><td>0.12</td><td>Try 3rd. Smoother hands</td></tr>
+              <tr><td>14 Paul Frère</td><td>4</td><td>195</td><td>0.17</td><td>One steering input, not eight</td></tr>
+              <tr><td>15 Blanchimont</td><td>6</td><td>242</td><td>0.32</td><td>Car width from the exit edge. Incidents on 6 laps</td></tr>
+              <tr><td>16 Bus Stop</td><td>2</td><td>70</td><td>0.79</td><td>Brake 10 m earlier at two-thirds pressure. 2nd, not 1st</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="block">
+        <h2>Our track map, run 5</h2>
+        <figure class="media on-light">
+          <a href="images/track-map.jpg"><img src="images/track-map.jpg" width="1560" height="1300" alt="Run 5 lap 4 track map with min speed, gear and time lost at each corner"></a>
+          <figcaption>Each corner with min speed, gear and time lost</figcaption>
+        </figure>
+      </section>
+
+      <section class="block">
+        <h2>Pit entry and exit</h2>
+        <div class="rows">
+          <div class="row"><div class="lead">In</div><div><strong>Pit entry at the Bus Stop</strong><p>Signal early on the radio. Lapped and lapping cars arrive at 260 km/h</p></div></div>
+          <div class="row"><div class="lead">Lane</div><div><strong>Endurance uses the whole pit road</strong><p>From the Bus Stop past La Source to Eau Rouge. Your box can be far down</p></div></div>
+          <div class="row"><div class="lead">Out</div><div><strong>Exit near Eau Rouge</strong><p>Stay on your side of the exit line. Cars come through flat out</p></div></div>
+          <div class="row"><div class="lead">Check</div><div><strong>Drive it in Test Drive this week</strong><p>Pit layout notes come from older iRacing threads; the 2024 scan may differ</p></div></div>
+        </div>
+      </section>
+
+      <section class="block">
+        <h2>Dusk and night</h2>
+        <figure class="media">
+          <img src="images/eau-rouge.jpg" width="1600" height="901" alt="Eau Rouge and Raidillon at Spa-Francorchamps from the bottom of the dip">
+          <figcaption>Eau Rouge and Raidillon. Photo by Cutkiller2018, CC BY-SA 4.0</figcaption>
+        </figure>
+        <ul class="bullets">
+          <li>Sim time starts at 10:00 on 16 May, so the last 30 to 60 minutes run into dusk. Estimate; check in warm-up.</li>
+          <li>Headlights on before it gets dark, not after the first missed braking point.</li>
+          <li>Pick braking points from things that stay lit, such as kerbs and track edges, not boards in shadow.</li>
+          <li>Flash before passing a lapped car, then commit to one side.</li>
+          <li>Rain: wipers on, TC and ABS up one step, brake earlier at Les Combes, Rivage and the Bus Stop.</li>
+        </ul>
+      </section>
+    </section>
+
+    <!-- RACE DAY -->
+    <section class="panel" id="panel-raceday" role="tabpanel" aria-labelledby="tab-raceday" hidden>
+      <section class="block">
+        <h2>Status</h2>
+        <p class="section-cap">As of Mon 23 Nov</p>
+        <ul class="checks">
+          <li class="done"><span class="box" aria-hidden="true"></span><span>Full Send Racing Discord built</span><span></span></li>
+          <li class="done"><span class="box" aria-hidden="true"></span><span>Adams-based setup passed tech on Krishan's garage</span><span></span></li>
+          <li><span class="box" aria-hidden="true"></span><span>Rob and Matt on the iRacing team roster</span><span class="meta">Not checked yet</span></li>
+          <li><span class="box" aria-hidden="true"></span><span>Licences checked (D 4.0 road or higher)</span><span class="meta">Not checked yet</span></li>
+          <li><span class="box" aria-hidden="true"></span><span>Time slot agreed</span><span></span></li>
+          <li><span class="box" aria-hidden="true"></span><span>Race setup file shared in #race-brief</span><span></span></li>
+          <li><span class="box" aria-hidden="true"></span><span>Each driver 10 laps on the Endurance config</span><span></span></li>
+          <li><span class="box" aria-hidden="true"></span><span>Full pit stop timed in Test Drive</span><span></span></li>
+        </ul>
+      </section>
+
+      <section class="block">
+        <h2>Before Saturday</h2>
+        <ul class="checks">
+          <li><span class="box" aria-hidden="true"></span><span>Update iRacing and content</span><span class="meta">Thu</span></li>
+          <li><span class="box" aria-hidden="true"></span><span>Bind every control on the Controls tab</span><span class="meta">Thu</span></li>
+          <li><span class="box" aria-hidden="true"></span><span>Discord 10-minute test with all three</span><span class="meta">Fri night</span></li>
+          <li><span class="box" aria-hidden="true"></span><span>Pin the final stint plan</span><span class="meta">Fri night</span></li>
+          <li><span class="box" aria-hidden="true"></span><span>Food, water, chair breaks planned</span><span class="meta">Fri</span></li>
+        </ul>
+      </section>
+
+      <section class="block">
+        <h2>Saturday, slot 1 (AEDT)</h2>
+        <p class="section-cap">Times after 9:00 AM are estimates.</p>
+        <div class="rows">
+          <div class="row"><div class="lead">7:30 AM</div><div><strong>Everyone in Briefing voice</strong><p>Check headsets, push-to-talk and the plan</p></div></div>
+          <div class="row"><div class="lead">8:00 AM</div><div><strong>Registration opens</strong><p>Admin registers FSR and declares all three drivers</p></div></div>
+          <div class="row"><div class="lead">8:50 AM</div><div><strong>Starting driver in the sim</strong><p>Others join as crew</p></div></div>
+          <div class="row"><div class="lead">9:00 AM</div><div><strong>Warm-up, 30 min</strong><p>Fuel, limiter and radio checks</p></div></div>
+          <div class="row"><div class="lead">9:30 AM</div><div><strong>Qualifying, 15 min or 4 laps</strong><p>One clean lap beats a fast lap with an incident</p></div></div>
+          <div class="row"><div class="lead">9:45 AM</div><div><strong>Green flag</strong><p>Stint 1, KRISH. Survive lap 1 at Les Combes</p></div></div>
+          <div class="row"><div class="lead">Hourly</div><div><strong>Stop and driver change</strong><p>Next driver in Race voice 5 min before</p></div></div>
+          <div class="row"><div class="lead">8:45 PM</div><div><strong>Last stint into dusk</strong><p>Headlights on</p></div></div>
+          <div class="row"><div class="lead">9:45 PM</div><div><strong>Chequered flag</strong><p>Cool-down lap, no contact after the flag</p></div></div>
+        </div>
+      </section>
+
+      <section class="block">
+        <h2>Sources</h2>
+        <div class="links">
+          <a href="https://www.iracing.com/special-events/" target="_blank" rel="noopener noreferrer">2026 Special Events calendar<small>iRacing</small></a>
+          <a href="https://devtrackir.herokuapp.com/" target="_blank" rel="noopener noreferrer">2026 Creventic 992 Endurance Cup (staff post, mirrored)<small>DevTrackiR</small></a>
+          <a href="https://support.iracing.com/support/solutions/articles/31000133594-team-driving" target="_blank" rel="noopener noreferrer">Team Driving<small>iRacing Support</small></a>
+          <a href="https://support.iracing.com/support/solutions/articles/31000167257-black-box-screen-information-and-controls" target="_blank" rel="noopener noreferrer">Black Box Screen Information and Controls<small>iRacing Support</small></a>
+          <a href="https://support.iracing.com/support/solutions/articles/31000169381-how-to-use-autofuel" target="_blank" rel="noopener noreferrer">How to Use AutoFuel<small>iRacing Support</small></a>
+          <a href="https://support.iracing.com/support/solutions/articles/31000170165-pit-macros-chat-commands" target="_blank" rel="noopener noreferrer">Pit Macros/Chat Commands<small>iRacing Support</small></a>
+          <a href="https://support.iracing.com/support/solutions/articles/31000173709-incident-points" target="_blank" rel="noopener noreferrer">Incident Points<small>iRacing Support</small></a>
+          <a href="https://ir-core-sites.iracing.com/members/pdfs/20260909-official_sporting_code_dated_Sep_09_2026.pdf" target="_blank" rel="noopener noreferrer">Official Sporting Code (Sep 2026)<small>iRacing</small></a>
+          <a href="https://www.iracing.com/cars/porsche-911-cup-992-2/" target="_blank" rel="noopener noreferrer">Porsche 911 Cup (992.2)<small>iRacing</small></a>
+          <a href="https://www.brakinglab.com/en/iracing-planner/tracks/spa-francorchamps-endurance-525" target="_blank" rel="noopener noreferrer">Spa Endurance track page<small>Braking Lab</small></a>
+          <a href="https://garage61.net/app/laps/444/194" target="_blank" rel="noopener noreferrer">Porsche Cup at Spa, Grand Prix Pits laps<small>Garage 61</small></a>
+        </div>
+      </section>
+    </section>
+
+  </main>
+
+  <footer class="site">
+    <div class="wrap">
+      <p class="brand">Full Send Racing, built with <span>Grok Bot</span></p>
+      <p>Found by Grok Bot on Nov 23. Pit black box section added 24 Nov 2026 from official iRacing Support screenshots. FSR car artwork is the team's shirt illustration, added 27 Nov 2026. Driver profiles and a made-up Full Send Racing origin story added 27 Nov 2026. Photos and map from Wikimedia Commons: Cutkiller2018 (CC BY-SA 4.0), Will Pittenger (CC BY-SA 3.0). Event times and rules can change, so check the session info on the day.</p>
+    </div>
+  </footer>
+
+  <button type="button" class="back-top" id="backTop" aria-label="Back to top" hidden>↑</button>
+
+  <script>
+    (function () {
+      document.documentElement.classList.add("js");
+      var tabs = Array.prototype.slice.call(document.querySelectorAll("[data-tab]"));
+      var panels = Array.prototype.slice.call(document.querySelectorAll(".panel"));
+      var valid = {};
+      tabs.forEach(function (t) { valid[t.getAttribute("data-tab")] = true; });
+
+      function show(id, updateHash) {
+        if (!valid[id]) id = "event";
+        panels.forEach(function (p) {
+          var on = p.id === "panel-" + id;
+          if (on) p.removeAttribute("hidden");
+          else p.setAttribute("hidden", "");
+        });
+        tabs.forEach(function (t) {
+          var on = t.getAttribute("data-tab") === id;
+          t.setAttribute("aria-selected", on ? "true" : "false");
+          t.tabIndex = on ? 0 : -1;
+        });
+        if (updateHash) {
+          if (history.replaceState) history.replaceState(null, "", "#" + id);
+          else location.hash = id;
+        }
+      }
+
+      document.querySelector(".tabs").addEventListener("click", function (e) {
+        var btn = e.target.closest("[data-tab]");
+        if (!btn) return;
+        show(btn.getAttribute("data-tab"), true);
+        document.getElementById("main").scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+
+      document.querySelector(".tabs").addEventListener("keydown", function (e) {
+        var keys = { ArrowRight: 1, ArrowLeft: -1, Home: "start", End: "end" };
+        if (!(e.key in keys)) return;
+        var i = tabs.indexOf(document.activeElement);
+        if (i < 0) return;
+        e.preventDefault();
+        var next;
+        if (keys[e.key] === "start") next = 0;
+        else if (keys[e.key] === "end") next = tabs.length - 1;
+        else next = (i + keys[e.key] + tabs.length) % tabs.length;
+        tabs[next].focus();
+        show(tabs[next].getAttribute("data-tab"), true);
+      });
+
+      window.addEventListener("hashchange", function () {
+        var id = location.hash.replace("#", "");
+        if (valid[id]) show(id, false);
+      });
+
+      var initial = location.hash.replace("#", "");
+      show(valid[initial] ? initial : "event", false);
+
+      var back = document.getElementById("backTop");
+      function onScroll() {
+        if (window.scrollY > 600) back.removeAttribute("hidden");
+        else back.setAttribute("hidden", "");
+      }
+      window.addEventListener("scroll", onScroll, { passive: true });
+      back.addEventListener("click", function () {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    })();
+  </script>
+</body>
+</html>

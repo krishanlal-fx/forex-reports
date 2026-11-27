@@ -307,10 +307,11 @@
     }
     .checks .meta { color: var(--muted); font-size: .85rem; }
     /* Grids and cards */
-    .split-2, .drivers {
+    .split-2, .drivers, .gallery {
       display: grid;
       gap: 16px;
     }
+    .gallery .media { margin: 0; }
     .card {
       background: var(--card);
       border: 1px solid var(--line);
@@ -378,7 +379,7 @@
     .back-top:hover { background: var(--blue); }
     @media (min-width: 700px) {
       .metrics { grid-template-columns: repeat(3, 1fr); }
-      .split-2 { grid-template-columns: 1fr 1fr; }
+      .split-2, .gallery { grid-template-columns: 1fr 1fr; }
       .row { grid-template-columns: 9rem 1fr; }
     }
     @media (min-width: 880px) {
@@ -607,6 +608,33 @@
               </dl>
             </div>
           </article>
+        </div>
+      </section>
+
+      <section class="block">
+        <h2>Team gallery</h2>
+        <p class="section-cap">Krishan, Rob and Matt running the team while the crew works the car.</p>
+        <div class="gallery">
+          <figure class="media">
+            <img src="images/01_pitwall_night.jpg" width="1280" height="720" alt="Krishan, Rob and Matt on headsets at the pit wall at night, watching timing screens as the crew works on the number 64 Porsche">
+            <figcaption>Calling the race from the pit wall</figcaption>
+          </figure>
+          <figure class="media">
+            <img src="images/02_strategy_meeting.jpg" width="1280" height="720" alt="Krishan, Rob and Matt around a table with a laptop and notes, going over the race plan, with the number 64 Porsche in the garage behind them">
+            <figcaption>Working the race plan</figcaption>
+          </figure>
+          <figure class="media">
+            <img src="images/03_crew_briefing.jpg" width="1280" height="720" alt="Krishan, Rob and Matt briefing the pit crew at a whiteboard, with the number 64 Porsche in the garage behind them">
+            <figcaption>Briefing the crew</figcaption>
+          </figure>
+          <figure class="media">
+            <img src="images/04_driver_change_watch.jpg" width="1280" height="720" alt="Krishan on a tablet, Rob on the radio and Matt on a stopwatch, overseeing a driver change on the number 64 Porsche">
+            <figcaption>Overseeing a driver change</figcaption>
+          </figure>
+          <figure class="media">
+            <img src="images/05_setup_review.jpg" width="1280" height="720" alt="Krishan, Rob and Matt reviewing setup data with an engineer, the number 64 Porsche on stands behind them">
+            <figcaption>Reviewing the setup with the engineer</figcaption>
+          </figure>
         </div>
       </section>
     </section>
@@ -1106,7 +1134,7 @@
   <footer class="site">
     <div class="wrap">
       <p class="brand">Full Send Racing, built with <span>Grok Bot</span></p>
-      <p>Found by Grok Bot on Nov 23. Pit black box section added 24 Nov 2026 from official iRacing Support screenshots. FSR car artwork is the team's shirt illustration, added 27 Nov 2026. Driver profiles and a made-up Full Send Racing origin story added 27 Nov 2026. Photos and map from Wikimedia Commons: Cutkiller2018 (CC BY-SA 4.0), Will Pittenger (CC BY-SA 3.0). Event times and rules can change, so check the session info on the day.</p>
+      <p>Found by Grok Bot on Nov 23. Pit black box section added 24 Nov 2026 from official iRacing Support screenshots. FSR car artwork is the team's shirt illustration, added 27 Nov 2026. Driver profiles and a made-up Full Send Racing origin story added 27 Nov 2026. Team gallery photos added 27 Nov 2026. Photos and map from Wikimedia Commons: Cutkiller2018 (CC BY-SA 4.0), Will Pittenger (CC BY-SA 3.0). Event times and rules can change, so check the session info on the day.</p>
     </div>
   </footer>
 
